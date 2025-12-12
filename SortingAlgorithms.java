@@ -1,7 +1,7 @@
 // Name: Abhiram Ruthala
 // Computing ID: kas4kj@virginia.edu
 // Homework Name: HW-13
-// Resources used: Claude Sonnet 4.5 for debugging
+// Resources used:
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,8 +76,8 @@ public class SortingAlgorithms {
         if (i < j) {
             int m = (i + j) / 2;
             mergeSort(list, i, m);
-            mergeSort(list, m, j);
-            merge(list, i, j, m);
+            mergeSort(list, m+1, j);
+            merge(list, i, m, j);
         }
 	}
 	
@@ -103,23 +103,30 @@ public class SortingAlgorithms {
         List<T> leftArray = new ArrayList<T>();
         List<T> rightArray = new ArrayList<>();
 
-        for(int k=i; k < mid; k++) {
+        for(int k=i; k <= mid; k++) {
             leftArray.add(list.get(k));
         }
 
-        for(int h=mid; h < j; h++) {
+        for(int h=mid+1; h <= j; h++) {
             rightArray.add(list.get(h));
         }
 
         int leftIndex = 0;
         int rightIndex = 0;
         while (leftIndex < leftArray.size() && rightIndex < rightArray.size()) {
-            if(leftArray.get(leftIndex).compareTo(rightArray.get(rightIndex)) < 0) {
-                list.set(leftIndex++, list.get(leftIndex++));
+            if(leftArray.get(leftIndex).compareTo(rightArray.get(rightIndex)) <= 0) {
+                list.set(leftIndex++, leftArray.get(leftIndex++));
 
-            } else if (leftArray.get(leftIndex).compareTo(rightArray.get(rightIndex)) > 0) {
-                list.set(leftIndex++, list.get(rightIndex++));
+            } else if (leftArray.get(leftIndex).compareTo(rightArray.get(rightIndex)) >= 0) {
+                list.set(leftIndex++, rightArray.get(rightIndex++));
             }
+        }
+        
+        while (leftIndex < leftArray.size()) {
+            list.set(leftIndex++, leftArray.get(leftIndex++));
+        }
+        while (rightIndex < rightArray.size()) {
+            list.set(rightIndex++, rightArray.get(rightIndex++));
         }
 
 	}
@@ -150,16 +157,16 @@ public class SortingAlgorithms {
         if(j-i+1 < 100) {
             insertionSort(list);
         }
-        
+
         if(i < j) {
             int m = (i + j) / 2;
             mergeSortHybrid(list, i, m);
             mergeSortHybrid(list, m, j);
-            merge(list, i, j, m);
+            merge(list, i, m, j);
         }
-        
-        
-        
+
+
+
 //        if(list.size() < 100) {
 //            insertionSort(list);
 //        }
@@ -194,7 +201,7 @@ public class SortingAlgorithms {
 		//TODO: write the body of this method
         if(i <j){
             int sense = partition(list, i, j);
-            quickSort(list, sense, i-1);
+            quickSort(list, i, sense-1);
             quickSort(list, sense+1, j);
         }
 	}
@@ -226,7 +233,7 @@ public class SortingAlgorithms {
 
         swap(list, boundary+1, j);
         return boundary +1;
-        
+
 	}
 	
 	//=================================================================================
@@ -253,10 +260,14 @@ public class SortingAlgorithms {
 		// When the size of array to be sorted is < 100, call insertionSort rather than recurse
         if(j-i+1 < 100) {
             insertionSort(list);
+            return;
+        }
+        if(i < j ) {
+            int pivot = partition(list, i, j);
+            quickSortHybrid(list, i, pivot - 1);
+            quickSortHybrid(list, pivot + 1, j);
         }
 
-        partition(list, i, j);
-        quickSort(list, i+1, j);
 
 
 //        for(int k = i; k <= j; k++) {
