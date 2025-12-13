@@ -47,7 +47,7 @@ public class SortingAlgorithms {
     public static <T extends Comparable<T>> void insertionSort(ArrayList<T> list, int i, int j) {
         for (int k = i+1; k <= j; k++) {
             T val = list.get(k);
-            int m = i-1;
+            int m = k-1;
             while (m >= i && val.compareTo(list.get(m)) < 0) {
                 list.set(m+1, list.get(m));
                 m--;
@@ -182,7 +182,7 @@ public class SortingAlgorithms {
 
         if(i < j) {
             int m = (i + j) / 2;
-            mergeSortHybrid(list, i, m-1);
+            mergeSortHybrid(list, i, m);
             mergeSortHybrid(list, m+1, j);
             merge(list, i, m, j);
         }
@@ -286,7 +286,7 @@ public class SortingAlgorithms {
         }
         if(i < j ) {
             int pivot = partition(list, i, j);
-            quickSortHybrid(list, i, pivot);
+            quickSortHybrid(list, i, pivot-1);
             quickSortHybrid(list, pivot + 1, j);
         }
 
