@@ -182,7 +182,7 @@ public class SortingAlgorithms {
 
         if(i < j) {
             int m = (i + j) / 2;
-            mergeSortHybrid(list, i, m);
+            mergeSortHybrid(list, i, m-1);
             mergeSortHybrid(list, m+1, j);
             merge(list, i, m, j);
         }
@@ -286,7 +286,7 @@ public class SortingAlgorithms {
         }
         if(i < j ) {
             int pivot = partition(list, i, j);
-            quickSortHybrid(list, i, pivot - 1);
+            quickSortHybrid(list, i, pivot);
             quickSortHybrid(list, pivot + 1, j);
         }
 
