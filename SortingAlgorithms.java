@@ -1,7 +1,7 @@
 // Name: Abhiram Ruthala
 // Computing ID: kas4kj@virginia.edu
 // Homework Name: HW-13
-// Resources used: Clade 4.5 Sonnet for debugging
+// Resources used: Claude 4.5 Sonnet for Debugging
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +43,18 @@ public class SortingAlgorithms {
 			list.set(j+1, val);
 		}
 	}
+
+    public static <T extends Comparable<T>> void insertionSort(ArrayList<T> list, int i, int j) {
+        for (int k = i+1; k <= j; k++) {
+            T val = list.get(k);
+            int m = i-1;
+            while (m >= i && val.compareTo(list.get(m)) < 0) {
+                list.set(m+1, list.get(m));
+                m--;
+            }
+            list.set(m+1, val);
+        }
+    }
 
 	//=================================================================================
 
@@ -164,7 +176,8 @@ public class SortingAlgorithms {
 
 		// When the size of array to be sorted is < 100, call insertionSort rather than recurse
         if(j-i+1 < 100) {
-            insertionSort(list);
+            insertionSort(list, i, j);
+            return;
         }
 
         if(i < j) {
@@ -268,7 +281,7 @@ public class SortingAlgorithms {
 		//TODO: write the body of this method
 		// When the size of array to be sorted is < 100, call insertionSort rather than recurse
         if(j-i+1 < 100) {
-            insertionSort(list);
+            insertionSort(list, i, j);
             return;
         }
         if(i < j ) {
