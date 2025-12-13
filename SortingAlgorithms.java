@@ -1,7 +1,7 @@
 // Name: Abhiram Ruthala
 // Computing ID: kas4kj@virginia.edu
 // Homework Name: HW-13
-// Resources used:
+// Resources used: Clade 4.5 Sonnet for debugging
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +33,11 @@ public class SortingAlgorithms {
 	 * @param list - An array of items
 	 */
 	public static <T extends Comparable<T>> void insertionSort(ArrayList<T> list) {
-		for (int i = 0; i < list.size(); i++) {
+		for (int i = 1; i < list.size(); i++) {
 			T val = list.get(i);
 			int j = i-1;
 			while (j >= 0 && val.compareTo(list.get(j)) < 0) {
-				list.set(j, list.get(j+1));
+				list.set(j+1, list.get(j));
 				j--;
 			}
 			list.set(j+1, val);
@@ -113,20 +113,29 @@ public class SortingAlgorithms {
 
         int leftIndex = 0;
         int rightIndex = 0;
+        int listPointer = i;
         while (leftIndex < leftArray.size() && rightIndex < rightArray.size()) {
             if(leftArray.get(leftIndex).compareTo(rightArray.get(rightIndex)) <= 0) {
-                list.set(leftIndex++, leftArray.get(leftIndex++));
+                list.set(listPointer, leftArray.get(leftIndex));
+                leftIndex++;
+                listPointer++;
 
             } else if (leftArray.get(leftIndex).compareTo(rightArray.get(rightIndex)) >= 0) {
-                list.set(leftIndex++, rightArray.get(rightIndex++));
+                list.set(listPointer, rightArray.get(rightIndex));
+                listPointer++;
+                rightIndex++;
             }
         }
-        
+
         while (leftIndex < leftArray.size()) {
-            list.set(leftIndex++, leftArray.get(leftIndex++));
+            list.set(listPointer, leftArray.get(leftIndex));
+            leftIndex++;
+            listPointer++;
         }
         while (rightIndex < rightArray.size()) {
-            list.set(rightIndex++, rightArray.get(rightIndex++));
+            list.set(listPointer, rightArray.get(rightIndex));
+            rightIndex++;
+            listPointer++;
         }
 
 	}
@@ -161,7 +170,7 @@ public class SortingAlgorithms {
         if(i < j) {
             int m = (i + j) / 2;
             mergeSortHybrid(list, i, m);
-            mergeSortHybrid(list, m, j);
+            mergeSortHybrid(list, m+1, j);
             merge(list, i, m, j);
         }
 
